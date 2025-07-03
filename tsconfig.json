@@ -26,14 +26,6 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "@controllers/*": ["src/controllers/*"],
-      "@models/*": ["src/models/*"],
-      "@services/*": ["src/services/*"],
-      "@middleware/*": ["src/middleware/*"],
-      "@routes/*": ["src/routes/*"],
-      "@helpers/*": ["src/helpers/*"],
-      "@errors/*": ["src/errors/*"],
-      "@common/*": ["src/common/*"]
     },
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "types": ["node", "express"]
