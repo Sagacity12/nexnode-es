@@ -44,7 +44,7 @@ jobs:
           node-version: '20.x'
 
       - name: Install tsc-alias
-        run: npm install global tsc-alias
+        run: npm i -g tsc-alias
 
       - name: Build Project
         run: npm run build
