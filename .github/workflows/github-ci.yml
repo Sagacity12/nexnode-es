@@ -81,7 +81,7 @@ jobs:
         run: npm i -g tsc-alias
 
       - name: Deploy to Vercel
-        run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }} 
+        run: vercel deploy --prod --prebuilt --token ${{ secrets.VERCEL_TOKEN }} --cwd dist
         env: 
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
