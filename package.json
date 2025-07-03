@@ -64,8 +64,8 @@
     "@types/passport-google-oauth2": "^0.1.10",
     "nodemon": "^3.1.10",
     "redis": "^5.5.6",
-    "ts-alias": "^0.0.7",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.16",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3"
   }
