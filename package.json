@@ -4,13 +4,12 @@
   "version": "1.0.0",
   "description": "Nexnode provides the foundational backend infrastructure needed to build comprehensive real estate solutions with modern web technologies.",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/main.js",
     "dev": "nodemon --watch src --exec ts-node src/main.ts",
-    "build": "tsc --project tsconfig.json",
-     "vercel-build": "npm run build"
+    "build": "tsc && ts-alias",
+    "vercel-build": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -63,6 +62,7 @@
     "@types/passport-google-oauth2": "^0.1.10",
     "nodemon": "^3.1.10",
     "redis": "^5.5.6",
+    "ts-alias": "^0.0.7",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3"
