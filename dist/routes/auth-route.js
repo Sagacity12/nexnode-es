@@ -1,0 +1,22 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const authcontroler_1 = require("../controllers/authcontroler");
+const authmiddleware_1 = require("../middleware/authmiddleware");
+const router = (0, express_1.Router)();
+router.post('/register', authcontroler_1.register);
+router.post('/verify-email', authcontroler_1.verifyEmail);
+router.post('/login', authcontroler_1.login);
+router.post('/generate-login-otp', authcontroler_1.generateLoginOTP);
+router.post('/verify-login-otp', authcontroler_1.verifyLoginOTP);
+router.post('/google-login', authcontroler_1.googleLogin);
+router.post('/link-google', authmiddleware_1.authMiddleware, authcontroler_1.linkGoogle);
+router.post('/unlink-google', authmiddleware_1.authMiddleware, authcontroler_1.unlinkGoogle);
+router.post('/request-password-reset', authcontroler_1.requestPasswordResetController);
+router.post('/verify-password-reset', authcontroler_1.verifyPasswordResetController);
+router.post('/reset-password', authcontroler_1.resetPasswordController);
+router.post('/change-password', authmiddleware_1.authMiddleware, authcontroler_1.changePasswordController);
+router.post('/resend-otp', authcontroler_1.resendOTPController);
+router.post('/logout', authmiddleware_1.authMiddleware, authcontroler_1.logout);
+exports.default = router;
+//# sourceMappingURL=auth-route.js.map
