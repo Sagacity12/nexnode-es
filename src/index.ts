@@ -1,14 +1,14 @@
-import { config } from "dotenv";
-config();
+const dotenv = require("dotenv");
+dotenv.config();
 
-import { createExpressApp } from "./servers";
-import applyRouters from "./routes/route";
-import errorHandler from "./middleware/error-Handler";
-import { connectDB } from "./servers/mongodb/mongodb";
-import { Request, Response } from "express";
 import express from "express";
+const { createExpressApp } = require("./servers");
+const { connectDB } = require("./servers/mongodb/mongodb");
+const applyRouters = require("./routes/route");
+const errorHandler = require("./middleware/error-Handler");
 
-const app = await createExpressApp();
+// Create Express app
+const app = createExpressApp();
 
 // Database Initialization
 const initDB = async () => {
@@ -18,41 +18,40 @@ const initDB = async () => {
       throw new Error("MongoDB URL not provided");
     }
     await connectDB(mongoUrl);
+    console.log("✅ Database connected");
   } catch (error) {
-    console.error("Database connection error:", error);
-    process.exit(1);
+    console.error("❌ Database connection error:", error);
   }
 };
 
 // Route Setup
 const setupRoutes = async () => {
   try {
-    // Define API Endpoints
+    // Root Route
     interface ApiEndpoints {
       api: string;
       auth: string;
       user: string;
     }
 
-    interface ApiResponse {
+    interface RootResponse {
       success: boolean;
       message: string;
       version: string;
       endpoints: ApiEndpoints;
     }
 
-    // Root Route
-    app.get("/", (req: Request, res: Response) => {
+    app.get("/", (req: express.Request, res: express.Response): void => {
       res.json({
-        success: true,
-        message: "Welcome to Nexnode Real Estate API",
-        version: "1.0.0",
-        endpoints: {
-          api: "/api/v1",
-          auth: "/api/v1/auth",
-          user: "/api/v1/user",
-        },
-      } as ApiResponse);
+      success: true,
+      message: "Welcome to Nexnode Real Estate API",
+      version: "1.0.0",
+      endpoints: {
+        api: "/api/v1",
+        auth: "/api/v1/auth",
+        user: "/api/v1/user",
+      },
+      } as RootResponse);
     });
 
     // Apply Routers
@@ -60,26 +59,14 @@ const setupRoutes = async () => {
 
     // Error Handler
     app.use(errorHandler);
+    console.log("✅ Routes initialized");
   } catch (error) {
-    console.error("Route setup error:", error);
+    console.error("❌ Route setup error:", error);
   }
 };
 
-// Initialize App
-const initApp = async () => {
-  const app = await createExpressApp();
-  try {
-    await initDB();
-    await setupRoutes();
-    app.listen(process.env.PORT || 3000, () => {
-      console.log("Server listening on port", process.env.PORT || 3000);
-    });
-  } catch (error) {
-    console.error("Error initializing app:", error);
-    process.exit(1);
-  }
-};
+// Initialize everything
+Promise.all([initDB(), setupRoutes()]).catch(console.error);
 
-initApp();
-
-export default app;
+// Export for Vercel
+module.exports = app;

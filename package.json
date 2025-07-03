@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Nexnode provides the foundational backend infrastructure needed to build comprehensive real estate solutions with modern web technologies.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/main.js",
