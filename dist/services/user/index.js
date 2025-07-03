@@ -89,14 +89,12 @@ const getUserProfile = async (userId) => {
 };
 exports.getUserProfile = getUserProfile;
 const createGoogleUser = async (data) => {
-    const user = await userSchema_1.default.create({
-        ...data,
-        isActive: true,
-    });
+    const user = await userSchema_1.default.create(Object.assign(Object.assign({}, data), { isActive: true }));
     return user;
 };
 exports.createGoogleUser = createGoogleUser;
 const updateUserProfile = async (userId, updateData) => {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
     try {
         await (0, validate_1.validateProfileData)(updateData);
         const currentUser = await userSchema_1.default.findById(userId).select("+password").exec();
@@ -128,21 +126,18 @@ const updateUserProfile = async (userId, updateData) => {
             updateObject.bio = updateData.Bio;
         if (updateData.Address) {
             updateObject.address = {
-                street: updateData.Address?.street,
-                city: updateData.Address?.city,
-                state: updateData.Address?.state,
-                zipCode: updateData.Address?.zipCode,
-                country: updateData.Address?.country,
+                street: (_a = updateData.Address) === null || _a === void 0 ? void 0 : _a.street,
+                city: (_b = updateData.Address) === null || _b === void 0 ? void 0 : _b.city,
+                state: (_c = updateData.Address) === null || _c === void 0 ? void 0 : _c.state,
+                zipCode: (_d = updateData.Address) === null || _d === void 0 ? void 0 : _d.zipCode,
+                country: (_e = updateData.Address) === null || _e === void 0 ? void 0 : _e.country,
             };
         }
         if (updateData.preferences) {
             updateObject.preferences = {
-                emailNotifications: updateData.preferences.emailNotifications ??
-                    currentUser.preferences?.emailNotifications,
-                smsNotifications: updateData.preferences.smsNotifications ??
-                    currentUser.preferences?.smsNotifications,
-                propertyAlerts: updateData.preferences.propertyAlerts ??
-                    currentUser.preferences?.propertyAlerts,
+                emailNotifications: (_f = updateData.preferences.emailNotifications) !== null && _f !== void 0 ? _f : (_g = currentUser.preferences) === null || _g === void 0 ? void 0 : _g.emailNotifications,
+                smsNotifications: (_h = updateData.preferences.smsNotifications) !== null && _h !== void 0 ? _h : (_j = currentUser.preferences) === null || _j === void 0 ? void 0 : _j.smsNotifications,
+                propertyAlerts: (_k = updateData.preferences.propertyAlerts) !== null && _k !== void 0 ? _k : (_l = currentUser.preferences) === null || _l === void 0 ? void 0 : _l.propertyAlerts,
             };
         }
         if (updateData.email && updateData.email !== currentUser.email) {
@@ -191,19 +186,16 @@ const updateProfilePicture = async (userId, profilePictureUrl) => {
 };
 exports.updateProfilePicture = updateProfilePicture;
 const updateUserPreferences = async (userId, preferences) => {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
     try {
         const user = await userSchema_1.default.findById(userId);
         if (!user) {
             throw (0, http_errors_1.default)(404, "User not found");
         }
         const updatedPreferences = {
-            emailNotifications: preferences.emailNotifications ??
-                user.preferences?.emailNotifications ??
-                true,
-            smsNotifications: preferences.smsNotifications ??
-                user.preferences?.smsNotifications ??
-                false,
-            propertyAlerts: preferences.propertyAlerts ?? user.preferences?.propertyAlerts ?? true,
+            emailNotifications: (_c = (_a = preferences.emailNotifications) !== null && _a !== void 0 ? _a : (_b = user.preferences) === null || _b === void 0 ? void 0 : _b.emailNotifications) !== null && _c !== void 0 ? _c : true,
+            smsNotifications: (_f = (_d = preferences.smsNotifications) !== null && _d !== void 0 ? _d : (_e = user.preferences) === null || _e === void 0 ? void 0 : _e.smsNotifications) !== null && _f !== void 0 ? _f : false,
+            propertyAlerts: (_j = (_g = preferences.propertyAlerts) !== null && _g !== void 0 ? _g : (_h = user.preferences) === null || _h === void 0 ? void 0 : _h.propertyAlerts) !== null && _j !== void 0 ? _j : true,
         };
         const updatedUser = await userSchema_1.default.findByIdAndUpdate(userId, { preferences: updatedPreferences }, { new: true }).select("-password -tempOTP -tempOTPExpiry");
         if (!updatedUser) {

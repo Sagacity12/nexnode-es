@@ -53,6 +53,9 @@ const createExpressApp = async () => {
         saveUninitialized: false,
         store: store,
     }));
+    app.get('/', (req, res) => {
+        res.send('Nexnode API is working!');
+    });
     return app;
 };
 exports.createExpressApp = createExpressApp;

@@ -8,6 +8,7 @@ const ajv_1 = __importDefault(require("ajv"));
 const ajv_formats_1 = __importDefault(require("ajv-formats"));
 const http_errors_1 = __importDefault(require("http-errors"));
 const validateAuthData = async (data) => {
+    var _a;
     const ajv = new ajv_1.default();
     (0, ajv_formats_1.default)(ajv);
     ajv.addFormat('email', {
@@ -33,7 +34,7 @@ const validateAuthData = async (data) => {
     const validate = ajv.compile(schema);
     const isValid = validate(data);
     if (!isValid) {
-        const errors = validate.errors?.map(error => {
+        const errors = (_a = validate.errors) === null || _a === void 0 ? void 0 : _a.map(error => {
             return { key: error.instancePath, message: error.message };
         });
         throw new http_errors_1.default.BadRequest(JSON.stringify(errors));
@@ -42,6 +43,7 @@ const validateAuthData = async (data) => {
 };
 exports.validateAuthData = validateAuthData;
 const validateLoginData = async (data) => {
+    var _a;
     const ajv = new ajv_1.default();
     (0, ajv_formats_1.default)(ajv);
     ajv.addFormat("email", {
@@ -69,9 +71,10 @@ const validateLoginData = async (data) => {
     const validate = ajv.compile(schema);
     const isValid = validate(data);
     if (!isValid) {
-        const errors = validate.errors?.map((error) => {
+        const errors = (_a = validate.errors) === null || _a === void 0 ? void 0 : _a.map((error) => {
+            var _a;
             const field = error.instancePath.replace("/", "") ||
-                error.params?.missingProperty ||
+                ((_a = error.params) === null || _a === void 0 ? void 0 : _a.missingProperty) ||
                 "unknown";
             return {
                 field: field,
@@ -86,6 +89,7 @@ const validateLoginData = async (data) => {
 };
 exports.validateLoginData = validateLoginData;
 const validateProfileData = async (data) => {
+    var _a;
     const ajv = new ajv_1.default();
     (0, ajv_formats_1.default)(ajv);
     ajv.addFormat("email", {
@@ -116,7 +120,7 @@ const validateProfileData = async (data) => {
     const validate = ajv.compile(schema);
     const isValid = validate(data);
     if (!isValid) {
-        const errors = validate.errors?.map(error => {
+        const errors = (_a = validate.errors) === null || _a === void 0 ? void 0 : _a.map(error => {
             return { key: error.instancePath, message: error.message };
         });
         throw new http_errors_1.default.BadRequest(JSON.stringify(errors));
@@ -125,6 +129,7 @@ const validateProfileData = async (data) => {
 };
 exports.validateProfileData = validateProfileData;
 const validatePasswordChange = async (data) => {
+    var _a;
     const ajv = new ajv_1.default();
     const schema = {
         type: "object",
@@ -150,9 +155,10 @@ const validatePasswordChange = async (data) => {
     const validate = ajv.compile(schema);
     const isValid = validate(data);
     if (!isValid) {
-        const errors = validate.errors?.map((error) => {
+        const errors = (_a = validate.errors) === null || _a === void 0 ? void 0 : _a.map((error) => {
+            var _a;
             const field = error.instancePath.replace("/", "") ||
-                error.params?.missingProperty ||
+                ((_a = error.params) === null || _a === void 0 ? void 0 : _a.missingProperty) ||
                 "unknown";
             return {
                 field: field,
@@ -175,6 +181,7 @@ const validatePasswordChange = async (data) => {
 };
 exports.validatePasswordChange = validatePasswordChange;
 const validateOTPData = async (data) => {
+    var _a;
     const ajv = new ajv_1.default();
     (0, ajv_formats_1.default)(ajv);
     ajv.addFormat("email", {
@@ -206,9 +213,10 @@ const validateOTPData = async (data) => {
     const validate = ajv.compile(schema);
     const isValid = validate(data);
     if (!isValid) {
-        const errors = validate.errors?.map((error) => {
+        const errors = (_a = validate.errors) === null || _a === void 0 ? void 0 : _a.map((error) => {
+            var _a;
             const field = error.instancePath.replace("/", "") ||
-                error.params?.missingProperty ||
+                ((_a = error.params) === null || _a === void 0 ? void 0 : _a.missingProperty) ||
                 "unknown";
             return {
                 field: field,

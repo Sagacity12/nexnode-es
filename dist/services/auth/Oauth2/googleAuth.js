@@ -98,11 +98,7 @@ const googleAuth = async (data) => {
             await (0, email_1.sendWelcomeEmail)(user.email, user.fullName);
         }
         else {
-            await userSchema_1.default.findByIdAndUpdate(user._id, {
-                lastLoginAt: new Date(),
-                ...(user.profilePicture ? {} : { profilePicture: googleUser.picture }),
-                ...(user.authProvider !== "google" ? { authProvider: "google" } : {}),
-            });
+            await userSchema_1.default.findByIdAndUpdate(user._id, Object.assign(Object.assign({ lastLoginAt: new Date() }, (user.profilePicture ? {} : { profilePicture: googleUser.picture })), (user.authProvider !== "google" ? { authProvider: "google" } : {})));
             user = await userSchema_1.default.findById(user._id);
         }
         if (!user) {
@@ -141,11 +137,7 @@ const linkGoogleAccount = async (userId, googleToken) => {
         if (existingGoogleUser) {
             throw (0, http_errors_1.default)(409, "This Google account is already linked to another user");
         }
-        const updatedUser = await userSchema_1.default.findByIdAndUpdate(userId, {
-            googleId: googleUser.email,
-            authProvider: "both",
-            ...(user.profilePicture ? {} : { profilePicture: googleUser.picture }),
-        }, { new: true }).select("-password -tempOTP -tempOTPExpiry");
+        const updatedUser = await userSchema_1.default.findByIdAndUpdate(userId, Object.assign({ googleId: googleUser.email, authProvider: "both" }, (user.profilePicture ? {} : { profilePicture: googleUser.picture })), { new: true }).select("-password -tempOTP -tempOTPExpiry");
         if (!updatedUser) {
             throw (0, http_errors_1.default)(500, "Failed to link Google account");
         }

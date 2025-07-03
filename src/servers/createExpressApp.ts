@@ -64,5 +64,9 @@ import limit from 'express-rate-limit';
     })
 );
 
+   app.get('/', (req, res) => {
+    res.send('Nexnode API is working!');    
+   })
+
     return app;
  }

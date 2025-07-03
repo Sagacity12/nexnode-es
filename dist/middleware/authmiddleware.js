@@ -38,7 +38,8 @@ const authMiddleware = async (req, res, next) => {
 exports.authMiddleware = authMiddleware;
 const authorizeRoles = (allowedRoles) => {
     return (req, res, next) => {
-        const userRole = req.user?.role;
+        var _a;
+        const userRole = (_a = req.user) === null || _a === void 0 ? void 0 : _a.role;
         if (!userRole || !allowedRoles.includes(userRole)) {
             return next(http_errors_1.default.Forbidden("Forbidden: You do not have permission to access this resource"));
         }

@@ -131,8 +131,9 @@ const googleLogin = async (req, res) => {
 };
 exports.googleLogin = googleLogin;
 const linkGoogle = async (req, res) => {
+    var _a;
     try {
-        const userId = req.user?.id;
+        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
         const { googleToken } = req.body;
         const result = await (0, googleAuth_1.linkGoogleAccount)(userId, googleToken);
         (0, helper_1.constructHttpErrorResponse)({
@@ -153,8 +154,9 @@ const linkGoogle = async (req, res) => {
 };
 exports.linkGoogle = linkGoogle;
 const unlinkGoogle = async (req, res) => {
+    var _a;
     try {
-        const userId = req.user?.id;
+        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
         const { password } = req.body;
         const result = await (0, googleAuth_1.unlinkGoogleAccount)(userId, password);
         (0, helper_1.constructHttpErrorResponse)({
@@ -213,8 +215,9 @@ const resetPasswordController = async (req, res) => {
 };
 exports.resetPasswordController = resetPasswordController;
 const changePasswordController = async (req, res) => {
+    var _a;
     try {
-        const userId = req.user?.id;
+        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
         const { currentPassword, newPassword, confirmPassword } = req.body;
         const result = await (0, index_1.changePassword)(userId, currentPassword, newPassword, confirmPassword);
         (0, helper_1.constructHttpErrorResponse)({

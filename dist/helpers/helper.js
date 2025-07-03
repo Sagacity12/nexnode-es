@@ -26,8 +26,9 @@ const jwtVerify = (token) => {
 };
 exports.jwtVerify = jwtVerify;
 const verifySocketToken = async (socket, next) => {
+    var _a;
     try {
-        const token = socket.handshake.auth?.token;
+        const token = (_a = socket.handshake.auth) === null || _a === void 0 ? void 0 : _a.token;
         if (!token)
             throw new http_errors_1.default.Forbidden("Forbidden: No token provided");
         const data = (0, exports.jwtVerify)(token);

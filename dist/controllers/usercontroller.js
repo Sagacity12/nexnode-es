@@ -4,8 +4,9 @@ exports.searchUsers = exports.getUserStats = exports.requestEmailVerificationCon
 const helper_1 = require("../helpers/helper");
 const index_1 = require("../services/user/index");
 const getProfile = async (req, res) => {
+    var _a;
     try {
-        const userId = req.user?.id;
+        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
         const result = await (0, index_1.getUserProfile)(userId);
         (0, helper_1.constructHttpErrorResponse)({
             success: true,
@@ -19,10 +20,11 @@ const getProfile = async (req, res) => {
 };
 exports.getProfile = getProfile;
 const getUserByIdController = async (req, res) => {
+    var _a, _b;
     try {
         const { id } = req.params;
-        const currentUserId = req.user?.id;
-        const currentUserRole = req.user?.role;
+        const currentUserId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
+        const currentUserRole = (_b = req.user) === null || _b === void 0 ? void 0 : _b.role;
         if (currentUserRole !== "ADMIN" && currentUserId !== id) {
             (0, helper_1.constructHttpErrorResponse)(null, {
                 message: "Access denied. You can only view your own profile.",
@@ -43,8 +45,9 @@ const getUserByIdController = async (req, res) => {
 };
 exports.getUserByIdController = getUserByIdController;
 const updateProfile = async (req, res) => {
+    var _a;
     try {
-        const userId = req.user?.id;
+        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
         const result = await (0, index_1.updateUserProfile)(userId, req.body);
         (0, helper_1.constructHttpErrorResponse)({
             success: true,
@@ -58,8 +61,9 @@ const updateProfile = async (req, res) => {
 };
 exports.updateProfile = updateProfile;
 const updateProfilePictureController = async (req, res) => {
+    var _a;
     try {
-        const userId = req.user?.id;
+        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
         const { profilePictureUrl } = req.body;
         const result = await (0, index_1.updateProfilePicture)(userId, profilePictureUrl);
         (0, helper_1.constructHttpErrorResponse)({
@@ -74,8 +78,9 @@ const updateProfilePictureController = async (req, res) => {
 };
 exports.updateProfilePictureController = updateProfilePictureController;
 const updatePreferences = async (req, res) => {
+    var _a;
     try {
-        const userId = req.user?.id;
+        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
         const result = await (0, index_1.updateUserPreferences)(userId, req.body);
         (0, helper_1.constructHttpErrorResponse)({
             success: true,
@@ -89,8 +94,9 @@ const updatePreferences = async (req, res) => {
 };
 exports.updatePreferences = updatePreferences;
 const getAllUsersController = async (req, res) => {
+    var _a;
     try {
-        if (req.user?.role !== "ADMIN") {
+        if (((_a = req.user) === null || _a === void 0 ? void 0 : _a.role) !== "ADMIN") {
             (0, helper_1.constructHttpErrorResponse)(null, {
                 message: "Access denied. Admin only.",
                 statusCode: 403,
@@ -123,8 +129,9 @@ const getAllUsersController = async (req, res) => {
 };
 exports.getAllUsersController = getAllUsersController;
 const deleteAccount = async (req, res) => {
+    var _a;
     try {
-        const userId = req.user?.id;
+        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
         const { password } = req.body;
         const result = await (0, index_1.deleteUserAccount)(userId, password);
         (0, helper_1.constructHttpErrorResponse)({
@@ -138,8 +145,9 @@ const deleteAccount = async (req, res) => {
 };
 exports.deleteAccount = deleteAccount;
 const requestEmailVerificationController = async (req, res) => {
+    var _a;
     try {
-        const userId = req.user?.id;
+        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
         const result = await (0, index_1.requestEmailVerification)(userId);
         (0, helper_1.constructHttpErrorResponse)({
             success: result.success,
@@ -153,8 +161,9 @@ const requestEmailVerificationController = async (req, res) => {
 };
 exports.requestEmailVerificationController = requestEmailVerificationController;
 const getUserStats = async (req, res) => {
+    var _a;
     try {
-        if (req.user?.role !== "ADMIN") {
+        if (((_a = req.user) === null || _a === void 0 ? void 0 : _a.role) !== "ADMIN") {
             (0, helper_1.constructHttpErrorResponse)(null, {
                 message: "Access denied. Admin only.",
                 statusCode: 403,
@@ -198,8 +207,9 @@ const getUserStats = async (req, res) => {
 };
 exports.getUserStats = getUserStats;
 const searchUsers = async (req, res) => {
+    var _a;
     try {
-        if (req.user?.role !== "ADMIN") {
+        if (((_a = req.user) === null || _a === void 0 ? void 0 : _a.role) !== "ADMIN") {
             (0, helper_1.constructHttpErrorResponse)(null, {
                 message: "Access denied. Admin only.",
                 statusCode: 403,
