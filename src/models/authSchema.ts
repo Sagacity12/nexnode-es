@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Auth } from "@/common/interfaces/auth";
+import { Auth } from "src/common/interfaces/auth";
 
 const authSchema = new mongoose.Schema<Auth>({
   userId: {

@@ -3,7 +3,7 @@ import createError from 'http-errors';
 import { jwtVerify } from '../helpers/helper';
 import { logger } from '../logger/logger';  
 import createHttpError from 'http-errors';
-import { isTokenBlacklisted } from '@/helpers/blacklisted';
+import { isTokenBlacklisted } from '../helpers/blacklisted';
 
 /**
  * Extent Express Request with user property

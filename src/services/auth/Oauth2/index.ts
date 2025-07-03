@@ -2,7 +2,7 @@ import passport from "passport";
 import { Strategy } from "passport-google-oauth2";
 import * as User from "../../user";
 import { logger } from "../../../logger";
-import { Role } from "@/common/enums";
+import { Role } from "src/common/enums";
 
 passport.serializeUser((user, done) => {
     done(null, user);

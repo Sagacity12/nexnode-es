@@ -1,7 +1,7 @@
 import createError from 'http-errors';
 import { NextFunction, Request, Response } from 'express';
 import { logger, rollbar } from '../logger/index';
-import { constructHttpErrorResponse } from '@/helpers/helper';
+import { constructHttpErrorResponse } from '../helpers/helper';
 
 interface HttpError extends Error {
     status: number;

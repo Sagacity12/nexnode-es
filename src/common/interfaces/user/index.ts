@@ -1,5 +1,6 @@
-import { Role } from '@/common/enums';
+
 import { Document, Types } from 'mongoose';
+import { Role } from 'src/common/enums';
 
 // Base user interface with common properties
 export interface IUser {

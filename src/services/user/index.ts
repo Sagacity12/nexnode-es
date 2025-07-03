@@ -1,8 +1,4 @@
-import {
-  IUserDocument,
-  IUserProfileUpdate,
-  googleUserData,
-} from "@common/interfaces/user/index";
+
 import { Types, FilterQuery, QueryOptions } from "mongoose";
 import User from "../../models/userSchema";
 import createError from "http-errors";
@@ -10,6 +6,8 @@ import * as helpers from "../../helpers/helper";
 import { validateProfileData } from "./validate";
 import { sendEmailOTP } from "../../helpers/email/email";
 import { checkUserExists } from "../auth/index";
+import { googleUserData, IUserDocument, IUserProfileUpdate } from "src/common/interfaces/user";
+;
 
 
 /**

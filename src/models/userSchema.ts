@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { IUser } from "../common/interfaces/user/index";
-import { Role } from "@/common/enums";
+import { Role } from "src/common/enums";
 
 const userSchema: Schema<IUser> = new Schema(
   {

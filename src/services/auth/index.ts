@@ -1,8 +1,4 @@
-import {
-  IUserLogin,
-  IUserDocument,
-  IUserRegistration,
-} from "@common/interfaces/user/index";
+
 import { Types } from "mongoose";
 import User from "../../models/userSchema";
 import createError from "http-errors";
@@ -18,6 +14,7 @@ import {
   sendPasswordResetConfirmationEmail,
 } from "../../helpers/email/email";
 import { sendSMSOTP } from "../../helpers/email/SMSOTP";
+import { IUserDocument, IUserLogin, IUserRegistration } from "src/common/interfaces/user";
 
 /**
  * Check if user already exists by email or phone

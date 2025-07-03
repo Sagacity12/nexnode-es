@@ -1,5 +1,5 @@
 import sgMail from "@sendgrid/mail";
-import { generateTimedOTP } from "@/helpers/helper";
+import { generateTimedOTP } from "../helper";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 

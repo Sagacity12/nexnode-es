@@ -1,5 +1,5 @@
 import twilio from "twilio";
-import { generateTimedOTP } from "@/helpers/helper";
+import { generateTimedOTP } from "../helper";
 
 // Twilio client
 const twilioClient = twilio(
