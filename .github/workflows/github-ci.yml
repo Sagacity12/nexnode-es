@@ -77,6 +77,8 @@ jobs:
 
       - name: Install Vercel CLI
         run: npm i -g vercel
+      - name: Install tsc-alias
+        run: npm i -g tsc-alias
 
       - name: Deploy to Vercel
         run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }} 
