@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: install tsc alias
-        run: npm install -g ts-alias
-
       - name: Build project
         run: npm run build
 
