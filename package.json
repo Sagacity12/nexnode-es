@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/main.js",
     "dev": "nodemon --watch src --exec ts-node src/main.ts",
-    "build": "tsc && npx tsc-alias",
+    "build": "tsc && tsc-alias",
     "vercel-build": "npm run build"
   },
   "repository": {
