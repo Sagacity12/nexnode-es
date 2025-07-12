@@ -9,7 +9,7 @@
     "start": "node dist/main.js",
     "dev": "nodemon",
     "build": "tsc && tsc-alias",
-    "vercel-build": "npm run build"
+    "deploy": "vercel deploy && vercel --prod"
   },
   "repository": {
     "type": "git",
