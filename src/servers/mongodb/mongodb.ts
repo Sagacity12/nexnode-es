@@ -49,9 +49,9 @@ async function runOneTimeCleanup() {
       // Drop problematic username index
       try {
         await db.collection("users").dropIndex("username_1");
-        console.log("✅ Dropped username_1 index");
+        console.log(" Dropped username_1 index");
       } catch (error) {
-        console.log("ℹ️ username_1 index not found (this is good)");
+        console.log("ℹ username_1 index not found (this is good)");
       }
 
       // Clean up any username fields
@@ -61,18 +61,18 @@ async function runOneTimeCleanup() {
           { username: { $exists: true } },
           { $unset: { username: 1 } }
         );
-      console.log(`✅ Cleaned ${result.modifiedCount} documents`);
+      console.log(` Cleaned ${result.modifiedCount} documents`);
 
       const deleteResult = await db
         .collection("users")
         .deleteMany({ username: null });
       console.log(
-        `✅ Deleted ${deleteResult.deletedCount} documents with null username`
+        ` Deleted ${deleteResult.deletedCount} documents with null username`
       );
 
-      console.log("🎉 Database cleanup completed!");
+      console.log(" Database cleanup completed!");
     }
   } catch (error) {
-    console.error("⚠️ Cleanup failed (non-critical):", error);
+    console.error(" Cleanup failed (non-critical):", error);
   }
 }

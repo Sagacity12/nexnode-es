@@ -69,6 +69,12 @@ Email and SMS notifications
 - Temporary user ID for 2FA
 - Error messages and validation states
 
+### baseUrl = /api/v1/
+
+### Registration Flow
+1. `POST {{baseUrl}}/auth/register` → Get user ID
+2. `POST {{baseUrl}}/auth/verify-email` → Account activated
+3. Redirect to login
 
 **Required Fields:**
 - **Full Name**: Minimum 3 characters, maximum 100 characters
@@ -97,7 +103,17 @@ Email and SMS notifications
 4. API verifies OTP and activates account
 5. User redirects to login or dashboard
 
+###  Resend OTP
+**Endpoint:** `POST {{baseUrl}}/auth/resend-otp`
+
+
 ##  User Login & 2FA Process
+
+### Login Flow
+1. `POST {{baseUrl}}/auth/login` → Get user ID for 2FA
+2. `POST {{baseUrl}}/auth/verify-login-otp` → Get JWT token
+3. Store token, redirect to dashboard
+
 
 ### Two-Step Login Flow
 
@@ -118,6 +134,7 @@ Email and SMS notifications
 ###  Google OAuth Integration
 
 ### Google OAuth Flow Overview
+**Endpoint:** `POST {{baseUrl}}/auth/google-login`
 
 **User Experience:**
 1. User clicks "Sign in with Google" button
@@ -134,6 +151,12 @@ Email and SMS notifications
 
 ### Password Reset Flow
 
+### Password Reset Flow
+1. `POST {{baseUrl}}/auth/request-password-reset` → OTP sent
+2. `POST {{baseUrl}}/auth/verify-password-reset` → Verify OTP
+3. `POST {{baseUrl}}/auth/reset-password` → Password updated
+
+
 **User Experience Journey:**
 1. **Forgot Password**: User clicks forgot password link
 2. **Email Entry**: User enters email address
@@ -141,6 +164,20 @@ Email and SMS notifications
 4. **OTP Verification**: User enters OTP code
 5. **New Password**: User creates new secure password
 6. **Confirmation**: Password successfully updated
+
+
+###  Logout
+
+**Endpoint:** `POST {{baseUrl}}/auth/logout`
+
+
+
+
+###  Get User Profile (Protected Route)
+
+**Endpoint:** `GET {{baseUrl}}/auth/profile`
+
+
 
 
 ## Error Handling Strategy
