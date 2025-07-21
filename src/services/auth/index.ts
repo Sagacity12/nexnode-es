@@ -71,12 +71,14 @@ export const registerUser = async (
       throw createError(400, "Role must be either CLIENT or ADMIN");
     }
 
+    const hashedPass = await helpers.hashedPassword(data.password);
+
     
     const newUser = new User({
       fullName: data.fullName,
       email: data.email.toLowerCase(),
       phone: data.phone,
-      password: data.password,
+      password: hashedPass,
       role: userRole,
       isEmailVerified: false,
       isActive: false,
@@ -202,6 +204,19 @@ export const authenticateCredentials = async (
   try {
     await validateLoginData(loginData);
 
+     const anyUser = await User.findOne({
+       email: loginData.email.toLowerCase(),
+     });
+
+      console.log("User exists:", {
+        found: !!anyUser,
+        email: anyUser?.email,
+        isActive: anyUser?.isActive,
+        isEmailVerified: anyUser?.isEmailVerified,
+      });
+
+      
+
     const user = await User.findOne({
       email: loginData.email.toLowerCase(),
       isActive: true,
@@ -224,6 +239,8 @@ export const authenticateCredentials = async (
       throw createError(401, "Invalid email or password");
     }
 
+    //const requires2FA = user.is2FAEnabled || false;
+
     return {
       user,
       requires2FA: true,
@@ -234,6 +251,8 @@ export const authenticateCredentials = async (
     throw createError(500, `Authentication failed: ${error.message}`);
   }
 };
+
+
 
 /**
  * Generate and send 2FA OTP for login (Step 2 of login)

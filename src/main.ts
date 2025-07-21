@@ -1,10 +1,10 @@
 import { config } from "dotenv";
 import { logger, rollbar } from "./logger/index";
-import { startServer } from "./app"; 
+//import { startServer } from "./app"; 
   const main = async () => {
     config();
-    const start = await import("./app");
-    await start.startServer();
+    const { default: startServer } = await import("./app");
+    await startServer();
     logger.info("Application started successfully");
   };
 

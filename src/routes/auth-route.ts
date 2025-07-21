@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {
   register,
   verifyEmail,
-  login,
+  loginUser as Login,
   generateLoginOTP,
   verifyLoginOTP,
   googleLogin,
@@ -24,7 +24,7 @@ const router = Router();
 
 router.post('/register', register);
 router.post('/verify-email',  verifyEmail);
-router.post('/login', login);
+router.post('/login', Login);
 router.post('/generate-login-otp', generateLoginOTP);
 router.post('/verify-login-otp', verifyLoginOTP);
 router.post('/google-login', googleLogin);

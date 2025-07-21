@@ -34,10 +34,6 @@ const userSchema: Schema<IUser> = new Schema(
       type: String,
       required: true,
       minlength: [8, "Password must be at least 8 characters long"],
-      match: [
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&,.]{8,}$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, and one number",
-      ],
     },
     tempOTP: { type: String, select: false },
     tempOTPExpiry: { type: Date, select: false },
@@ -46,6 +42,10 @@ const userSchema: Schema<IUser> = new Schema(
     lastPasswordChange: { type: Date },
 
     isEmailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    is2FAEnabled: {
       type: Boolean,
       default: false,
     },

@@ -4,7 +4,7 @@ node_modules
 error.log
 combined.log
 dist
-
+.github
 
 .vercel
 

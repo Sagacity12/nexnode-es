@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { constructHttpErrorResponse } from "../helpers/helper";
+import { NextFunction, Request, Response } from "express";
+import { constructHttpErrorResponse, generateOTP } from "../helpers/helper";
 import {
   registerUser,
   verifyEmailOTP,
@@ -17,6 +17,7 @@ import {
   linkGoogleAccount,
   unlinkGoogleAccount,
 } from "../services/auth/Oauth2/googleAuth";
+import { IUserLogin } from "src/common/interfaces/user";
 
 /**
  * User Registration 
@@ -80,17 +81,27 @@ export const verifyEmail = async (
  * @param req - 
  * @param res -
  */
-export const login = async (req: Request, res: Response): Promise<void> => {
+export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await authenticateCredentials(req.body);
+    const loginData: IUserLogin = req.body;
+    const authResult = await authenticateCredentials(loginData);
 
-    constructHttpErrorResponse(
+    if (!authResult.user || !authResult.user._id) {
+      throw new Error("Invalid user data received from authentication");
+    }
+
+      const twoFAResult = await generateLogin2FA(
+        authResult.user._id.toString(), "email"
+      );
+
+       return constructHttpErrorResponse(
       {
         success: true,
-        message: result.message,
-        userId: result.user._id,
-        requires2FA: result.requires2FA,
-        email: result.user.email,
+        message:
+          "2FA code sent to your email. Please verify to complete login.",
+        requiresAuth: true,
+        userId: authResult.user._id,
+        otpExpiresAt: twoFAResult.expiresAt,
       },
       null,
       200

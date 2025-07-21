@@ -14,6 +14,7 @@ export interface IUser {
   otpVerified: boolean;
   lastPasswordChange?: Date;
   isEmailVerified?: boolean;
+  is2FAEnabled?: boolean;
   isPhoneVerified?: boolean;
   profilePicture?: string;
   preferences?: {
@@ -21,6 +22,7 @@ export interface IUser {
     smsNotifications?: boolean;
     propertyAlerts?: boolean;
   };
+  
   tempOTP?: string;
   tempOTPExpiry?: Date;
   // dateOfBirth?: Date;
@@ -32,6 +34,15 @@ export interface IUser {
   isDeleted?: boolean;
   googleId?: string;
   authProvider?: string;
+}
+
+interface IAuthResult {
+  requires2FA: boolean;
+  user: {
+    _id: string;
+    email: string;
+    role: string;
+  };
 }
 
 // Address interface for user location
