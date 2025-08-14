@@ -137,7 +137,7 @@ export const verifyEmailOTP = async (
 
     const user = await User.findOne({
       email: email.toLowerCase(),
-      isActive: false,
+      isActive: true,
     }).select("+tempOTP +tempOTPExpiry");
 
     if (!user) {

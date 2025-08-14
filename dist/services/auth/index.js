@@ -129,7 +129,7 @@ const verifyEmailOTP = async (email, inputOTP) => {
         await (0, validate_1.validateOTPData)({ otp: inputOTP, email });
         const user = await userSchema_1.default.findOne({
             email: email.toLowerCase(),
-            isActive: false,
+            isActive: true,
         }).select("+tempOTP +tempOTPExpiry");
         if (!user) {
             throw (0, http_errors_1.default)(404, "User not found or already verified");
