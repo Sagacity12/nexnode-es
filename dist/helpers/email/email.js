@@ -30,7 +30,7 @@ const sendEmailOTP = async (email, purpose = "verification", otpLength = 6) => {
         console.log(" Generated OTP:", otp);
         // Email subjects based on purpose
         const subjects = {
-            registration: "Nexnode - Welcome! Verify Your Email",
+            registration: "Nexnode - Welcome! ",
             login: "Nexnode - Login Verification Code",
             "password-reset": "Nexnode - Password Reset Code",
             verification: "Nexnode - Email Verification Code",

@@ -17,18 +17,18 @@ const HelmetOptions = {
     crossOriginEmbedderPolicy: false,
 };
 const limiter = (0, express_rate_limit_1.default)({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per windowMs
+    windowMs: 15 * 60 * 1000,
+    max: 100,
     message: 'Too many requests, please try again later.',
-    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers 
-    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    standardHeaders: true,
+    legacyHeaders: false,
 });
 const createExpressApp = async () => {
     const app = (0, express_1.default)();
     const mongoStore = (0, connect_mongodb_session_1.default)(express_session_1.default);
-    const mongoUrl = process.env.MONGO_URI || process.env.MONGO_URL;
+    const mongoUrl = process.env.MONGODB_URI;
     if (!mongoUrl) {
-        throw new Error('MONGO_URL is not defined');
+        throw new Error('MONGODB_URI is not defined');
     }
     const store = new mongoStore({
         uri: mongoUrl,
@@ -37,11 +37,11 @@ const createExpressApp = async () => {
     store.on('error', (err) => {
         logger.error('Session store error:', err);
     });
-    app.set('trust proxy', 1); // Trust first proxy
-    app.use(express_1.default.json({ limit: "50mb" })); // Limit JSON body size to 50mb
+    app.set('trust proxy', 1);
+    app.use(express_1.default.json({ limit: "50mb" }));
     app.use(limiter);
-    app.use((0, helmet_1.default)(HelmetOptions)); // Use Helmet for security headers
-    app.use(helmet_1.default.hidePoweredBy()); // Remove X-Powered-By header
+    app.use((0, helmet_1.default)(HelmetOptions));
+    app.use(helmet_1.default.hidePoweredBy());
     app.use(express_1.default.urlencoded({ extended: true }));
     const sessionSecret = process.env.SESSION_SECRET;
     if (!sessionSecret) {

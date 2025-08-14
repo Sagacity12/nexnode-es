@@ -42,7 +42,7 @@ Email and SMS notifications
 ### Complete User Journey Map
 
 **New User Path:**
-1. **Registration Form** → **Email Verification** → **Dashboard Access**
+1. **Registration Form** → ** optional: Email Verification** → **Login** - **verify-login-otp: 2FA** - **Dashboard Access**
 2. **Form Validation** → **API Call** → **OTP Delivery** → **OTP Verification** → **Success State**
 
 **Returning User Path:**

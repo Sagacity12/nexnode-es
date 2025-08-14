@@ -1,6 +1,5 @@
 import bcrypt  from 'bcrypt';
 import jwt from 'jsonwebtoken';
-//import crypto from 'crypto';
 import { NextFunction, Response } from 'express';
 import createHttpError, { HttpError } from 'http-errors';
 
@@ -84,7 +83,7 @@ export const generateTimedOTP = (length: number = 6): { otp: string; expiresAt: 
 };
 
 /**
- * Verify time OTP with expireation check
+ * Verify time OTP with expiration check
  * @param inputOTP - The OTP entered by user 
  * @param storedOTP -  The OTP stored in database 
  * @param expiresAt - When the OTP expires

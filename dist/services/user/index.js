@@ -43,7 +43,6 @@ const helpers = __importStar(require("../../helpers/helper"));
 const validate_1 = require("./validate");
 const email_1 = require("../../helpers/email/email");
 const index_1 = require("../auth/index");
-;
 /**
  * Get user by ID
  * @param userId - User ID

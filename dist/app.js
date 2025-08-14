@@ -8,18 +8,16 @@ const http_1 = __importDefault(require("http"));
 const index_1 = require("./servers/index");
 const logger_1 = require("./logger/logger");
 const mongodb_1 = require("./servers/mongodb/mongodb");
+const cors_1 = __importDefault(require("cors"));
 const redisConnectDB_1 = __importDefault(require("./servers/mongodb/redisConnectDB"));
 const route_1 = __importDefault(require("./routes/route"));
-//import { authMiddleware } from "./middleware/authmiddleware";
-//import { isTokenBlacklisted } from "./helpers/blacklisted";
-//import { constructHttpErrorResponse } from "./helpers/helper";
 const error_Handler_1 = __importDefault(require("./middleware/error-Handler"));
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 /**
  * create he http server here and start the server
  */
 const startServer = async () => {
-    await (0, mongodb_1.connectDB)(String(process.env.MONGO_URL));
+    await (0, mongodb_1.connectDB)(String(process.env.MONGODB_URI));
     //logger.info("MongoDB connected successfully");
     await redisConnectDB_1.default.connect();
     logger_1.logger.info("Redis connected successfully");
@@ -36,12 +34,16 @@ const startServer = async () => {
             },
             server: {
                 port: PORT,
-                environment: process.env.NODE_ENV || 'development'
-            }
+                environment: process.env.NODE_ENV || "development",
+            },
         });
     });
     await (0, route_1.default)(app);
     app.use(error_Handler_1.default);
+    app.use((0, cors_1.default)({
+        //origin: ["http://localhost:3000", ""],
+        credentials: true,
+    }));
     //app.all("*", (_req, _, next) => {
     //  next(createError(404, "Not Found"));
     //});

@@ -81,7 +81,7 @@ export const registerUser = async (
       password: hashedPass,
       role: userRole,
       isEmailVerified: false,
-      isActive: false,
+      isActive: true,
       authProvider: "local",
       createdAt: new Date(),
       lastLoginAt: null,
@@ -219,17 +219,18 @@ export const authenticateCredentials = async (
 
     const user = await User.findOne({
       email: loginData.email.toLowerCase(),
-      isActive: true,
+     // isActive: true,
     }).select("+password");
 
     if (!user) {
       throw createError(401, "Invalid email or password");
     }
 
-    if (!user.isEmailVerified) {
-      throw createError(401, "Please verify your email before logging in");
-    }
-
+     
+    // if (!user.isEmailVerified) {
+    //   throw createError(401, "Please verify your email before logging in");
+    // }
+    
     const isPasswordValid = await helpers.comparePassword(
       loginData.password,
       user.password

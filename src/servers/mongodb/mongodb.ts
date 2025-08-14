@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { logger } from "../../logger/logger";
 
-// Connect to the database
+
 export const connectDB = async (url: string) => {
   mongoose.connection.on("connected", () => {
     logger.info("MongoDB connected successfully");
@@ -19,7 +19,7 @@ export const connectDB = async (url: string) => {
     await mongoose.connect(url, {});
     logger.info("Database connection established");
 
-    // Only run cleanup on first connection
+  
     await runOneTimeCleanup();
 
     return true;
@@ -29,7 +29,7 @@ export const connectDB = async (url: string) => {
   }
 };
 
-// Separate cleanup function
+
 async function runOneTimeCleanup() {
   try {
     const db = mongoose.connection.db;
@@ -46,7 +46,7 @@ async function runOneTimeCleanup() {
         indexes.map((idx) => idx.name)
       );
 
-      // Drop problematic username index
+      
       try {
         await db.collection("users").dropIndex("username_1");
         console.log(" Dropped username_1 index");
@@ -54,7 +54,7 @@ async function runOneTimeCleanup() {
         console.log("ℹ username_1 index not found (this is good)");
       }
 
-      // Clean up any username fields
+      
       const result = await db
         .collection("users")
         .updateMany(

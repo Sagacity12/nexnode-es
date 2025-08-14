@@ -7,7 +7,7 @@ import { validateProfileData } from "./validate";
 import { sendEmailOTP } from "../../helpers/email/email";
 import { checkUserExists } from "../auth/index";
 import { googleUserData, IUserDocument, IUserProfileUpdate } from "src/common/interfaces/user";
-;
+
 
 
 /**
@@ -228,11 +228,11 @@ export const updateProfilePicture = async (
     if (error.status) throw error;
     throw createError(
       500,
-      `Failed to update profile picture: ${error.message}`
+  
+    `Failed to update profile picture: ${error.message}`
     );
   }
 };
-
 /**
  * Update user preferences
  * @param userId - User ID

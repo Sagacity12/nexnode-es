@@ -89,7 +89,7 @@ const generateTimedOTP = (length = 6) => {
 };
 exports.generateTimedOTP = generateTimedOTP;
 /**
- * Verify time OTP with expireation check
+ * Verify time OTP with expiration check
  * @param inputOTP - The OTP entered by user
  * @param storedOTP -  The OTP stored in database
  * @param expiresAt - When the OTP expires
